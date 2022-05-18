@@ -1,0 +1,87 @@
+{
+	// Place your VsCode workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"For Loop": {
+		"prefix": "_for",
+		"body": [
+		  "for(auto& ele : $1)",
+		  "{",
+		  "    $2",
+		  "}",
+		],
+		"description": "For Loop"
+	  },
+	  "New Line": {
+		"prefix": "_nline",
+		"body": [
+		  "cout << \"\\n\";"
+		],
+		"description": "New Line"
+	  },
+	  "New Value": {
+		"prefix": "_val",
+		"body": [
+		  "int val;",
+		  "cin >> val;"
+		],
+		"description": "New Value"
+	  },
+	  "Count If": {
+		"prefix": "_count",
+		"body": [
+		  "count_if($1.begin(), $1.end(), [&](auto &ele){ return ($2); })"
+		],
+		"description": "Count If"
+	  },
+	  "Preffix Sum": {
+		"prefix": "_pref",
+		"body": [
+		  "vector<long long> pref($1.size());",
+		  "partial_sum($1.begin(),$1.end(),pref.begin());",
+		  "auto pref_sum = [&](int l,int r) -> long long",
+		  "{",
+		  "    if(r >= $1.size()) r = $1.size() - 1;",
+		  "    if(l > r) return 0;",
+		  "    if(l <= 0) return pref[r];",
+		  "    return pref[r] - pref[l-1];",
+		  "};"
+		],
+		"description": "Preffix Sum"
+	  },
+	  "Binary Search": {
+		"prefix": "_bin",
+		"body": [
+		  "auto check = [&](ll md) -> bool",
+		  "{",
+		  "};",
+		  "",
+		  "ll low = 0, high = 1e15, mid, ans = 0;",
+		  "while(low <= high)",
+		  "{",
+		  "    mid = (low + high) >> 1;",
+		  "    if(check(mid))",
+		  "    {",
+		  "        ans = mid;",
+		  "        low = mid + 1;",
+		  "    }",
+		  "    else high = mid - 1;",
+		  "}"
+		],
+		"description": "Binary Search"
+	  }
+
+}
