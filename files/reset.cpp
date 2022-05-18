@@ -21,7 +21,7 @@ int main()
     else
         cout << "Unable to open file" << endl;
     string out = "../CP/A.cpp";
-    string rem = "../CP/A.exe";
+    string rem = "../CP/A";
     int idx = 6;
     out[idx] = (out[idx] - 1);
     rem[idx] = out[idx];

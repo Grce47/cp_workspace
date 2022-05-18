@@ -1,36 +1,61 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/*
-    ORDERED SET
-    st.find_by_order(index) -> pointer to element of given index
-    st.order_of_key(element) -> number of elements strictly less than that element
- */
+//------------------------------------------------//
+#if __has_include("../files/GR47_debug.cpp")
+#include "../files/GR47_debug.cpp"
+#endif
+#ifdef GR47_LOCAL
+#define deb(x) {cerr << #x << " "; _print(x); cerr << "\n";}
+#else
+#define deb(x)
+#endif
+#define rep(i, a, b) for (int i = a; i < b; i++)
+#define precision(a) cout << setprecision(a) << fixed
+#define MSB(x) (63 - __builtin_clzll(x))
+#define amax(a, b) a = max(a, b)
+#define amin(a, b) a = min(a, b)
+#define MP make_pair
+#define all(a) a.begin(), a.end()
+typedef vector<int> vi; typedef vector<vector<int>> vvi; typedef vector<long long> vl; typedef vector<vector<long long>> vvl; typedef vector<bool> vb; typedef vector<vector<bool>> vvb; typedef map<int, int> mii; typedef map<long long, long long> mll; typedef pair<int, int> pii; typedef pair<long long, long long> pll; typedef unsigned long long ull; typedef long double ld; typedef long long ll;
+//------------------------------------------------//
 
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-using namespace __gnu_pbds;
-template<typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-// END
+const long long MOD = 1000000007;
+const int MAX_N = 500001;
 
-
-int main()
+void solve()
 {
-    ordered_set<int> st;
-    int n;
-    cin >> n;
-    for (int i = 0; i < n; i++)
+}
+
+int32_t main()
+{
+// #define DEBUG_MODE
+#ifndef DEBUG_MODE
+    ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+
+#ifdef GR47_LOCAL
+    freopen("../files/input.txt", "r", stdin); freopen("../files/output.txt", "w", stdout); freopen("../files/error.txt", "w", stderr);
+#endif
+#else
+#ifdef GR47_LOCAL
+    freopen("../files/input.txt", "r", stdin);
+#endif
+#endif
+
+
+    int tc = 1;
+    cin >> tc;
+    for (int loop = 1; loop <= tc; loop++)
     {
-        int val;
-        cin >> val;
-        st.insert(val);
+        // cout << "Case #" << loop << ": ";
+        solve();
+        // bool as = solve(); cout << (as ? "YES\n" : "NO\n");
+        // int as = solve(); cout << as << "\n";
     }
-
-    int k;
-    cin >> k;
-
-    cout << (st.size() - st.order_of_key(k));
-
     return 0;
 }
+
+/*
+    Thu May 19 02:26:42 2022
+    File : B.cpp
+*/
