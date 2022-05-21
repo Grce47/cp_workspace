@@ -15,6 +15,14 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
+	"Unique": {
+		"prefix": "_unique",
+		"body": [
+		  "$1.resize(distance($1.begin(),unique($1.begin(),$1.end())));",
+		  "int n_new = $1.size();"
+		],
+		"description": "Unique"
+	  },
 	"For Loop": {
 		"prefix": "_for",
 		"body": [

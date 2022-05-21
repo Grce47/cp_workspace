@@ -17,6 +17,8 @@ using namespace std;
 #define amin(a, b) a = min(a, b)
 #define MP make_pair
 #define all(a) a.begin(), a.end()
+template <class T> ostream &operator<<(ostream &os, const vector<T> a){ for (auto ele : a) os << ele << " "; return os;} 
+template <class T> istream &operator>>(istream &is, vector<T> &a){ for (auto &ele : a) is >> ele; return is; }
 typedef vector<int> vi; typedef vector<vector<int>> vvi; typedef vector<long long> vl; typedef vector<vector<long long>> vvl; typedef vector<bool> vb; typedef vector<vector<bool>> vvb; typedef map<int, int> mii; typedef map<long long, long long> mll; typedef pair<int, int> pii; typedef pair<long long, long long> pll; typedef unsigned long long ull; typedef long double ld; typedef long long ll;
 //------------------------------------------------//
 
@@ -56,6 +58,6 @@ int32_t main()
 }
 
 /*
-    Thu May 19 02:38:07 2022
+    Sat May 21 01:08:13 2022
     File : A.cpp
 */
