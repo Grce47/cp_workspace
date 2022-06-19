@@ -18,7 +18,7 @@ void getInp(vector<string> &a,ifstream &input_file)
 
 int32_t main()
 {
-    // freopen("error.txt", "w", stdout);
+    freopen("error.txt", "w", stdout);
     vector<string> brute;
     vector<string> mySol;
     ifstream bruteInp("b_output.txt");

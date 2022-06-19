@@ -4,17 +4,17 @@ struct LCA
 {
     int N;
     static const int D = 18;
-    vvi table;
-    vvi tree;
+    vector<vector<int>> table;
+    vector<vector<int>> tree;
 
-    vi depth;
+    vector<int> depth;
 
-    LCA(vvi &tree)
+    LCA(vector<vector<int>>  &tree)
     {
-        N = sz(tree);
+        N = tree.size();
         this->tree = tree;
         depth.assign(N, 0);
-        table.assign(D, vi(N, -1));
+        table.assign(D, vector<int>(N, -1));
         dfs(0, -1);
         for (int i = 1; i < D; i++)
         {

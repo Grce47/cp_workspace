@@ -1,4 +1,3 @@
-
 struct Matrix
 {
     vector<vector<long long>> table;
@@ -8,13 +7,13 @@ struct Matrix
         n = N;
         table.resize(n, vl(n, 0));
     }
-    void add_mod(ll &a, ll b)
+    void add_mod(long long &a, long long b)
     {
         a = a + b;
         if (a > MOD)
             a -= MOD;
     }
-    ll mul_mod(ll a, ll b)
+    long long mul_mod(long long a, long long b)
     {
         return (a * b) % MOD;
     }
@@ -31,9 +30,9 @@ struct Matrix
         }
         return res;
     }
-    ll sum_of_all()
+    long long sum_of_all()
     {
-        ll res = 0;
+        long long res = 0;
         for (int i = 0; i < n; i++)
         {
             for (int j = 0; j < n; j++)
@@ -43,7 +42,7 @@ struct Matrix
     }
 };
 
-Matrix power(Matrix base, ll k)
+Matrix power(Matrix base, long long k)
 {
     Matrix res(base.n); // identity matrix
     for (int i = 0; i < base.n; i++)
