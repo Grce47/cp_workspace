@@ -61,12 +61,12 @@ public:
     string s;
     void randomize()
     {
-        n = 1e5;
+        n = 10;
     }
     void display()
     {
         cout<<n<<"\n";
-        rep(i,0,n) cout<<n<<" ";
+        rep(i,0,n) cout<<genNum(1,3000)<<" ";
         cout << '\n';
     }
 };

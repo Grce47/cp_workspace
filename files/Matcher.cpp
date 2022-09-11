@@ -1,10 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void getInp(vector<string> &a,ifstream &input_file)
+void getInp(vector<string> &a, ifstream &input_file)
 {
     string line;
-     if (input_file.is_open())
+    if (input_file.is_open())
     {
         while (getline(input_file, line))
         {
@@ -23,25 +23,27 @@ int32_t main()
     vector<string> mySol;
     ifstream bruteInp("b_output.txt");
     ifstream myInp("output.txt");
-    getInp(brute,bruteInp);
-    getInp(mySol,myInp);
-    if(brute.size() != mySol.size())
+    getInp(brute, bruteInp);
+    getInp(mySol, myInp);
+    if (brute.size() != mySol.size())
     {
-        cout<<"Size NOT Same !!\n";
+        cout << "Size NOT Same !!\n";
         // return 0;
     }
     int ok = 0;
-    for(int i=0;i<brute.size();i++)
+    for (int i = 0; i < brute.size(); i++)
     {
         // if(ok > 0) break;
-        if(brute[i] != mySol[i])
+        if (brute[i] != mySol[i])
         {
             ok++;
-            cout<<"CASE : "<<i+1<<"\n";
-            cout<<"BRUTE : "<<brute[i]<<"\nMYSOL : "<<mySol[i]<<"\n\n";
+            cout << "CASE : " << i + 1 << "\n";
+            cout << "BRUTE : " << brute[i] << "\nMYSOL : " << mySol[i] << "\n\n";
         }
     }
-    if(ok == 0) cout<<"ALL OK!!";
-    else cout<<"PROBLEM : "<<ok;
+    if (ok == 0)
+        cout << "ALL OK!!";
+    else
+        cout << "PROBLEM : " << ok;
     return 0;
 }
