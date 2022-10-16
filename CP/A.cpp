@@ -27,7 +27,6 @@ const int MAX_N = 500001;
 
 void solve()
 {
-    cout<<"helop\n";
 }
 
 int32_t main()
@@ -59,6 +58,6 @@ int32_t main()
 }
 
 /*
-    Sun Sep 11 20:49:18 2022
+    Sun Oct 16 18:35:44 2022
     File : A.cpp
 */
