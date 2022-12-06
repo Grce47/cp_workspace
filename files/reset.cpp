@@ -22,14 +22,18 @@ int main()
         cout << "Unable to open file" << endl;
     string out = "../CP/A.cpp";
     string rem = "../CP/A";
+    string rem2 = "../CP/A.exe";
     int idx = 6;
     out[idx] = (out[idx] - 1);
     rem[idx] = out[idx];
+    rem2[idx] = out[idx];
     for (int i = 0; i < no_of_files; i++)
     {
         out[idx] = (out[idx] + 1);
         rem[idx] = out[idx];
         remove(rem.c_str());
+        rem2[idx] = out[idx];
+        remove(rem2.c_str());
         ofstream output_file(out.c_str());
 
         // output_file << "    CodeForce : Gr47\n    CodeChef : gr47ace\n    HackerRank : gracesharma47\n*/\n";
