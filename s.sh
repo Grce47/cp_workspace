@@ -1,3 +1,4 @@
 git add .
-git commit -m "linux terminal"
+now=$(date)
+git commit -m "$now"
 git push -u origin main
