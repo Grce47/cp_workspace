@@ -45,5 +45,11 @@ int main()
         output_file << "    File : " << out.substr(idx) << "\n*/\n";
         output_file.close();
     }
+    ofstream reset_input("input.txt");
+    reset_input.close();
+    ofstream reset_output("output.txt");
+    reset_output.close();
+    ofstream error_output("error.txt");
+    error_output.close();
     return 0;
 }
