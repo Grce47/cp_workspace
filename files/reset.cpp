@@ -41,8 +41,8 @@ int main()
         {
             output_file << ele << endl;
         }
-        output_file << "\n/*\n    " << ctime(&my_time);
-        output_file << "    File : " << out.substr(idx) << "\n*/\n";
+        // output_file << "\n/*\n    " << ctime(&my_time);
+        // output_file << "    File : " << out.substr(idx) << "\n*/\n";
         output_file.close();
     }
     ofstream reset_input("input.txt");

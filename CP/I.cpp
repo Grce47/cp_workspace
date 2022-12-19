@@ -56,8 +56,3 @@ int32_t main()
     }
     return 0;
 }
-
-/*
-    Sun Dec 18 19:55:12 2022
-    File : I.cpp
-*/

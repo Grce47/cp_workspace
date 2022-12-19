@@ -188,7 +188,14 @@
 	  "Count If": {
 		"prefix": "_count",
 		"body": [
-		  "count_if($1.begin(), $1.end(), [&](auto &ele){ return ($2); })"
+		  "count_if($1.begin(), $1.end(), [&](auto &ele){ return (${2:condition}); })"
+		],
+		"description": "Count If"
+	  },
+	  "Accumulate With": {
+		"prefix": "_accum",
+		"body": [
+		  "accumulate($1.begin(), $1.end(), ${2:initial value}, [&](auto &ele1, auto &ele2){ return (ele1 ${3:operator} ele2); })"
 		],
 		"description": "Count If"
 	  },
@@ -199,8 +206,8 @@
 		  "partial_sum($1.begin(),$1.end(),pref.begin());",
 		  "auto pref_sum = [&](int l,int r) -> long long",
 		  "{",
-		  "    if(r >= $1.size()) r = $1.size() - 1;",
 		  "    if(l > r) return 0;",
+		  "    if(r >= $1.size()) r = $1.size() - 1;",
 		  "    if(l <= 0) return pref[r];",
 		  "    return pref[r] - pref[l-1];",
 		  "};"
