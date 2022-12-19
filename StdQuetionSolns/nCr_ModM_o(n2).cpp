@@ -1,4 +1,5 @@
 // set MAX_N and call fact_init();
+// time : O(N^2) + query * O(1)
 long long factorial[MAX_N], nCr[MAX_N][MAX_N];
 void fact_init()
 {

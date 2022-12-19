@@ -1,6 +1,4 @@
-
 // method 1 -> O(sqrt(n)) per query
-
 vi factorization(int n)
 {
     if (n == 1)
@@ -27,7 +25,6 @@ vi factorization(int n)
 }
 
 // method 2 -> O(nlog(logn) + query*logn)
-
 int spf[MAX_N];
 void sieve()
 {
