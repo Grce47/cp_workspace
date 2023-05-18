@@ -5,13 +5,14 @@ struct Matrix
     Matrix(int N)
     {
         n = N;
-        table.resize(n, vl(n, 0));
+        table.resize(n, vector<long long>(n, 0));
     }
     void add_mod(long long &a, long long b)
     {
         a = a + b;
-        if (a > MOD)
-            a -= MOD;
+        while (a < 0)
+            a += MOD;
+        a %= MOD;
     }
     long long mul_mod(long long a, long long b)
     {

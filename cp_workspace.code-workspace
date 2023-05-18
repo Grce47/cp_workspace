@@ -1,25 +1,32 @@
 {
-    "folders": [
-        {
-            "path": "."
-        }
-    ],
-    "settings": {
-        "files.associations": {
-            "iostream": "cpp",
-            "vector": "cpp",
-            "random": "cpp",
-            "*.tcc": "cpp",
-            "iosfwd": "cpp",
-            "string_view": "cpp",
-            "regex": "cpp",
-            "bitset": "cpp",
-            "deque": "cpp",
-            "forward_list": "cpp",
-            "list": "cpp",
-            "unordered_map": "cpp",
-            "unordered_set": "cpp",
-            "system_error": "cpp"
-        }
+  "folders": [
+    {
+      "path": "."
     }
+  ],
+  "settings": {
+    "files.associations": {
+      "iostream": "cpp",
+      "vector": "cpp",
+      "random": "cpp",
+      "*.tcc": "cpp",
+      "iosfwd": "cpp",
+      "string_view": "cpp",
+      "regex": "cpp",
+      "bitset": "cpp",
+      "deque": "cpp",
+      "forward_list": "cpp",
+      "list": "cpp",
+      "unordered_map": "cpp",
+      "unordered_set": "cpp",
+      "system_error": "cpp",
+      "string": "cpp",
+      "climits": "cpp"
+    },
+    "editor.tabSize": 4,
+    "C_Cpp.vcFormat.newLine.beforeElse": false,
+    "C_Cpp.vcFormat.newLine.beforeCatch": false,
+    "C_Cpp.vcFormat.indent.withinParentheses": "alignToParenthesis",
+    "C_Cpp.vcFormat.wrap.preserveBlocks": "allOneLineScopes"
+  }
 }

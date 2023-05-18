@@ -1,12 +1,3 @@
-// set MAX_N and call fact_init();
-long long factorial[MAX_N];
-void fact_init()
-{
-    factorial[0] = factorial[1] = 1;
-    for (int i = 2; i < MAX_N; i++)
-        factorial[i] = (factorial[i - 1] * i) % MOD;
-}
-
 // returns (a^n) % MOD
 long long power(long long a, long long n)
 {
@@ -21,6 +12,18 @@ long long power(long long a, long long n)
     return res;
 }
 
+// set MAX_N and call fact_init();
+long long factorial[MAX_N], inv_factorial[MAX_N];
+void fact_init()
+{
+    factorial[0] = factorial[1] = 1;
+    for (int i = 2; i < MAX_N; i++)
+        factorial[i] = (factorial[i - 1] * i) % MOD;
+
+    for (int i = 0; i < MAX_N; i++)
+        inv_factorial[i] = power(factorial[i], MOD - 2);
+}
+
 // returns (nCr) %MOD
 long long nCr(int n, int r)
 {
@@ -28,7 +31,7 @@ long long nCr(int n, int r)
         return 0;
     if (n == r || r == 0)
         return 1;
-    return ((factorial[n] * power(factorial[r], MOD - 2)) % MOD * power(factorial[n - r], MOD - 2)) % MOD;
+    return ((factorial[n] * inv_factorial[r]) % MOD * inv_factorial[n - r]) % MOD;
 }
 
 // note: MAX_N >= 2*n

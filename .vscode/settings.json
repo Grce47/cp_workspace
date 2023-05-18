@@ -1,0 +1,15 @@
+{
+  "editor.wordWrap": "off",
+    // "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: LLVM, ColumnLimit: 0, BreakBeforeBraces: Attach, BreakBeforeBinaryOperators: None }",
+    "editor.formatOnSave": true,
+    "[cpp]": {
+      "editor.tabSize": 4,
+      "editor.insertSpaces": false,
+      "editor.formatOnPaste": false,
+      "editor.formatOnType": false
+    },
+    "C_Cpp.files.exclude": {
+        "**/.vscode": true,
+        "**/.vs": true
+    }
+}

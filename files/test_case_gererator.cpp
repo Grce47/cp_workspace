@@ -27,7 +27,7 @@ using namespace std;
 // #define int long long
 
 template <class T>
-void _print(vector<T>& a)
+void _print(vector<T> &a)
 {
     for (T ele : a)
         cout << ele << " ";
@@ -35,7 +35,7 @@ void _print(vector<T>& a)
 }
 
 template <class T>
-void _print(T& a)
+void _print(T &a)
 {
     cout << a << ' ';
 }
@@ -61,13 +61,15 @@ public:
     string s;
     void randomize()
     {
-        n = 10;
+        n = 1e5;
     }
     void display()
     {
-        cout<<n<<"\n";
-        rep(i,0,n) cout<<genNum(1,3000)<<" ";
+        cout << n << " " << n << "\n";
+        rep(i, 0, n) cout << n << " ";
         cout << '\n';
+        rep(i,0,n) cout<<i+n<<" ";
+        cout << "\n";
     }
 };
 
@@ -84,7 +86,7 @@ int32_t main()
     freopen("input.txt", "w", stdout);
     int tc = 1;
     // cin >> tc;
-    cout << tc << "\n";
+    // cout << tc << "\n";
     for (int loop = 1; loop <= tc; loop++)
     {
         // cout << loop << "\n";

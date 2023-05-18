@@ -1,9 +1,8 @@
-
 // use adj_list with 0 based indexing and root of tree is 0
 struct LCA
 {
     int N;
-    static const int D = 18;
+    static const int D = 20;
     vector<vector<int>> table;
     vector<vector<int>> tree;
 
