@@ -22,7 +22,8 @@
       "system_error": "cpp",
       "string": "cpp",
       "climits": "cpp",
-      "iterator": "cpp"
+      "iterator": "cpp",
+      "ostream": "cpp"
     },
     "editor.tabSize": 4,
     "C_Cpp.vcFormat.newLine.beforeElse": false,
