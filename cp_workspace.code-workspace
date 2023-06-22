@@ -21,7 +21,8 @@
       "unordered_set": "cpp",
       "system_error": "cpp",
       "string": "cpp",
-      "climits": "cpp"
+      "climits": "cpp",
+      "iterator": "cpp"
     },
     "editor.tabSize": 4,
     "C_Cpp.vcFormat.newLine.beforeElse": false,
