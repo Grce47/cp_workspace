@@ -23,12 +23,21 @@
       "string": "cpp",
       "climits": "cpp",
       "iterator": "cpp",
-      "ostream": "cpp"
+      "ostream": "cpp",
+      "cmath": "cpp",
+      "array": "cpp",
+      "initializer_list": "cpp",
+      "utility": "cpp",
+      "valarray": "cpp"
     },
     "editor.tabSize": 4,
     "C_Cpp.vcFormat.newLine.beforeElse": false,
     "C_Cpp.vcFormat.newLine.beforeCatch": false,
     "C_Cpp.vcFormat.indent.withinParentheses": "alignToParenthesis",
-    "C_Cpp.vcFormat.wrap.preserveBlocks": "allOneLineScopes"
+    "C_Cpp.vcFormat.wrap.preserveBlocks": "allOneLineScopes",
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    "python.formatting.provider": "none"
   }
 }

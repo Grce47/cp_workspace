@@ -78,14 +78,5 @@ struct SuffixArray
                 h--;
         }
     }
-    void display()
-    {
-        cout << "String : " << s << "\n{index , lcp}\n";
-        rep(i, 0, sz(a))
-        {
-            cout << i << " -> ";
-            cout << a[i] << " , " << lcp[i] << " : " << s.substr(a[i], sz(a) - a[i]) << "\n";
-        }
-    }
 };
 // END suffix Array
