@@ -7,13 +7,13 @@ private:
         int parent;
         int number;
     };
-    Node *nodes;
+    vector<Node> nodes;
 
 public:
     DisSet(int N)
     {
-        nodes = (Node *)malloc(sizeof(Node) * (N + 1));
-        for (int i = 0; i <= N; i++)
+        nodes.resize(N);
+        for (int i = 0; i < N; i++)
         {
             nodes[i].rank = 0;
             nodes[i].number = 1;

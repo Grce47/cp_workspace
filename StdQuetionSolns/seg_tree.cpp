@@ -35,16 +35,16 @@ private:
 public:
     Stree(int l, int r)
     {
-        tree.reserve(((r - l + 1) << 2) + 5);
+        tree.reserve((r - l + 1) << 2);
         tree.emplace_back(l, r);
     }
-    void buildTree(vector<long long> &a, state *cur = NULL)
+    void buildTree(state *cur = NULL)
     {
         if (cur == NULL)
             cur = &tree[0];
         if (cur->ss == cur->se)
         {
-            cur->val.sm = a[cur->ss];
+            cur->val.sm = 0;
             return;
         }
 
@@ -60,8 +60,8 @@ public:
             cur->R = &tree.back();
         }
 
-        buildTree(a, cur->L);
-        buildTree(a, cur->R);
+        buildTree(cur->L);
+        buildTree(cur->R);
 
         cur->val = combine(cur->L->val, cur->R->val);
     }

@@ -1,4 +1,29 @@
 {
+	"Graph": {
+		"prefix": "_tree",
+		"body": [
+		  "struct Graph",
+		  "{",
+		  "    int n;",
+		  "    vector<vector<int>> tree;",
+		  "    Graph(int _n) : n(_n)",
+		  "    {",
+		  "        tree.resize(n);",
+		  "    }",
+		  "    inline void take_input()",
+		  "    {",
+		  "        for (int i = 0; i < n - 1; i++)",
+		  "        {",
+		  "            int u, v;",
+		  "            cin >> u >> v;",
+		  "            tree[u].push_back(v);",
+		  "            tree[v].push_back(u);",
+		  "        }",
+		  "    }",
+		  "};"
+		],
+		"description": "Graph"
+	  },
 	"Segment Tree": {
 		"prefix": "_seg",
 		"body": [

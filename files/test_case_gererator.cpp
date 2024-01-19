@@ -1,29 +1,35 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int genNum(int a, int b)
+#define int long long
+
+int rand_big()
 {
-    int val = a + rand() % (b - a + 1);
+    return (long long)rand() * (long long)rand() * (long long)rand() * (long long)rand();
+}
+
+int randNum(int a, int b)
+{
+    int val = a + rand_big() % (b - a + 1);
     return val;
 }
 
 char genChar()
 {
     char ch = 'a';
-    int ascii = genNum(0, 25);
+    int ascii = randNum(0, 25);
     return char(ch + ascii);
 }
-
-int randNum(int a, int b)
-{
-    int val = a + rand() % (b - a + 1);
-    return val;
-}
-
 void testcase()
 {
-    int n = randNum(100, 1000);
-    cout << n << endl;
+    int n = 10;
+    cout << n << "\n";
+    vector<int> a(n);
+    iota(a.begin(), a.end(), 1);
+    random_shuffle(a.begin(), a.end());
+    for (auto &e : a)
+        cout << e << " ";
+        
 }
 
 int32_t main()
@@ -32,7 +38,7 @@ int32_t main()
     freopen("input.txt", "w", stdout);
     int tc = 1;
     // cin >> tc;
-    cout << tc << "\n";
+    // cout << tc << "\n";
     for (int loop = 1; loop <= tc; loop++)
     {
         testcase();

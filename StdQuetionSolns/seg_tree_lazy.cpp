@@ -1,12 +1,12 @@
-struct segment
-{
-    long long mn;
-    bool def = false;
-};
-
 class Stree
 {
 private:
+    struct segment
+    {
+        long long sm = 0;
+        bool def = false;
+    };
+
     segment combine(const segment &left, const segment &right)
     {
         if (left.def)
@@ -17,7 +17,8 @@ private:
         segment res;
         res.def = false;
 
-        res.mn = min(left.mn, right.mn);
+        res.sm = left.sm + right.sm;
+
         return res;
     }
 
@@ -25,33 +26,36 @@ private:
     {
         int ss, se, mid;
         segment val;
-        long long lazy = 0;
-        bool to_push = false;
         state *L = NULL, *R = NULL;
         state(int _ss, int _se) : ss(_ss), se(_se), mid((_ss + _se) >> 1) {}
-    };
 
-    void push(state *cur)
-    {
-        if (!cur->to_push)
-            return;
-        cur->val.mn += cur->lazy;
-        if (cur->ss != cur->se)
+        bool to_push = false;
+        long long lazy = 0;
+
+        inline void push()
         {
-            cur->L->to_push = cur->R->to_push = true;
-            cur->L->lazy += cur->lazy;
-            cur->R->lazy += cur->lazy;
+            if (!to_push)
+                return;
+
+            val.sm += (se - ss + 1LL) * lazy;
+
+            if (ss != se)
+            {
+                L->lazy += lazy;
+                R->lazy += lazy;
+                L->to_push = R->to_push = true;
+            }
+            to_push = false;
+            lazy = 0;
         }
-        cur->to_push = false;
-        cur->lazy = 0;
-    }
+    };
 
     vector<state> tree;
 
 public:
     Stree(int l, int r)
     {
-        tree.reserve(((r - l + 1) << 2) + 5);
+        tree.reserve((r - l + 1) << 2);
         tree.emplace_back(l, r);
     }
     void buildTree(state *cur = NULL)
@@ -60,7 +64,7 @@ public:
             cur = &tree[0];
         if (cur->ss == cur->se)
         {
-            cur->val.mn = 0;
+            cur->val.sm = 0;
             return;
         }
 
@@ -86,8 +90,7 @@ public:
     {
         if (cur == NULL)
             cur = &tree[0];
-
-        push(cur);
+        cur->push();
 
         if (cur->ss == cur->se)
             return cur->val;
@@ -101,8 +104,7 @@ public:
     {
         if (cur == NULL)
             cur = &tree[0];
-
-        push(cur);
+        cur->push();
 
         if (cur->ss > qe || cur->se < qs)
         {
@@ -120,44 +122,44 @@ public:
     {
         if (cur == NULL)
             cur = &tree[0];
-
-        push(cur);
+        cur->push();
 
         if (cur->ss == cur->se)
         {
-            cur->val.mn = a;
+            cur->val.sm = a;
             return;
         }
-
-        push(cur->L);
-        push(cur->R);
-
         if (cur->mid >= q)
+        {
             updatePoint(q, a, cur->L);
+            cur->R->push();
+        }
         else
+        {
             updatePoint(q, a, cur->R);
+            cur->L->push();
+        }
 
         cur->val = combine(cur->L->val, cur->R->val);
     }
 
-    void updateRange(int qs, int qe, long long a, state *cur = NULL)
+    void increaseRange(int qs, int qe, long long a, state *cur = NULL)
     {
         if (cur == NULL)
             cur = &tree[0];
+        cur->push();
 
-        push(cur);
-
-        if (cur->ss > qe || qs > cur->se)
+        if (cur->ss > qe || cur->se < qs)
             return;
         if (cur->ss >= qs && cur->se <= qe)
         {
             cur->to_push = true;
             cur->lazy += a;
-            push(cur);
+            cur->push();
             return;
         }
-        updateRange(qs, qe, a, cur->L);
-        updateRange(qs, qe, a, cur->R);
+        increaseRange(qs, qe, a, cur->L);
+        increaseRange(qs, qe, a, cur->R);
 
         cur->val = combine(cur->L->val, cur->R->val);
     }
