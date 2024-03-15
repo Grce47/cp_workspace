@@ -4,17 +4,15 @@ struct LCA
     int N;
     static const int D = 20;
     vector<vector<int>> table;
-    vector<vector<int>> tree;
 
     vector<int> depth;
 
-    LCA(vector<vector<int>>  &tree)
+    LCA(vector<vector<int>> &tree)
     {
         N = tree.size();
-        this->tree = tree;
         depth.assign(N, 0);
         table.assign(D, vector<int>(N, -1));
-        dfs(0, -1);
+        dfs(0, -1, tree);
         for (int i = 1; i < D; i++)
         {
             for (int u = 0; u < N; u++)
@@ -27,7 +25,7 @@ struct LCA
         }
     }
 
-    void dfs(int u, int p)
+    void dfs(int u, int p, const vector<vector<int>> &tree)
     {
         table[0][u] = p;
         for (int v : tree[u])
@@ -35,7 +33,7 @@ struct LCA
             if (v == p)
                 continue;
             depth[v] = depth[u] + 1;
-            dfs(v, u);
+            dfs(v, u, tree);
         }
     }
 
