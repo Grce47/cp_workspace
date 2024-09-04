@@ -6,16 +6,13 @@
 		  "{",
 		  "    int n;",
 		  "    vector<vector<int>> tree;",
-		  "    Graph(int _n) : n(_n)",
-		  "    {",
-		  "        tree.resize(n);",
-		  "    }",
+		  "    Graph(int _n) : n(_n), tree(_n) {}",
 		  "    inline void take_input()",
 		  "    {",
 		  "        for (int i = 0; i < n - 1; i++)",
 		  "        {",
 		  "            int u, v;",
-		  "            cin >> u >> v;",
+		  "            cin >> u >> v; u--; v--;",
 		  "            tree[u].push_back(v);",
 		  "            tree[v].push_back(u);",
 		  "        }",
@@ -208,9 +205,16 @@
 		"description": "New Value"
 	  },
 	  "Count If": {
-		"prefix": "_count",
+		"prefix": "_countif",
 		"body": [
 		  "count_if($1.begin(), $1.end(), [&](auto &ele){ return (${2:condition}); })"
+		],
+		"description": "Count If"
+	  },
+	  "Count": {
+		"prefix": "_count",
+		"body": [
+		  "count($1.begin(), $1.end(), ${2:element})"
 		],
 		"description": "Count If"
 	  },
