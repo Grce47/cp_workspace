@@ -5,7 +5,7 @@ using namespace std;
 #ifdef GR47_LOCAL
 #include "../files/GR47_debug.hpp"
 #else
-#define deb(x)
+#define deb(...)
 #endif
 
 #define rep(i, a, b) for (int i = a; i < b; i++)

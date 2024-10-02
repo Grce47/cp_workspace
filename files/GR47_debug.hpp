@@ -1,11 +1,6 @@
 #pragma once
 
-#define deb(x)                                            \
-    {                                                     \
-        cerr << "line[" << __LINE__ << "] " << #x << " "; \
-        _print(x);                                        \
-        cerr << "\n";                                     \
-    }
+#define deb(...) cerr << "Line[" << __LINE__ << "]" << " (" << #__VA_ARGS__ << "): ", _dbg_out(__VA_ARGS__)
 
 void _print(int t) { cerr << t; }
 void _print(long long t) { cerr << t; }
@@ -105,4 +100,13 @@ void _print(T *v, int N)
         cerr << " ";
     }
     cerr << "]";
+}
+
+void _dbg_out() { cerr << endl; }
+template <typename Head, typename... Tail>
+void _dbg_out(Head H, Tail... T)
+{
+    _print(H);
+    cerr << " ";
+    _dbg_out(T...);
 }
