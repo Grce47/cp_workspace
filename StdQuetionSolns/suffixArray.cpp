@@ -1,82 +1,116 @@
-// Suffix Array
-#define sz(a) a.size()
-typedef pair<ll, int> pli;
-void count_sort(vector<pli> &b, int bits)
-{ // (optional)
-    // this is just 3 times faster than stl sort for N=10^6
-    int mask = (1 << bits) - 1;
-    rep(it, 0, 2)
-    {
-        int move = it * bits;
-        vi q(1 << bits), w(sz(q) + 1);
-        rep(i, 0, sz(b))
-            q[(b[i].first >> move) & mask]++;
-        partial_sum(q.begin(), q.end(), w.begin() + 1);
-        vector<pli> res(b.size());
-        rep(i, 0, sz(b))
-            res[w[(b[i].first >> move) & mask]++] = b[i];
-        swap(b, res);
-    }
-}
-struct SuffixArray
+class SuffixArray
 {
-    vi a;
-    vi lcp;
-    vi rank;
-    string s;
-    SuffixArray(const string &_s) : s(_s + '\0')
+private:
+    using node = array<int, 3>;
+    static void radix_sort(vector<node> &a)
     {
-        int N = sz(s);
-        vector<pli> b(N);
-        a.resize(N);
-        rep(i, 0, N)
+        int n = a.size();
+        for (int id = 1; id >= 0; id--)
         {
-            b[i].first = s[i];
-            b[i].second = i;
-        }
+            vector<int> cnt(n);
+            for (auto &x : a)
+                cnt[x[id]]++;
 
-        int q = 8;
-        while ((1 << q) < N)
-            q++;
-        for (int moc = 0;; moc++)
-        {
-            count_sort(b, q); // sort(all(b)) can be used as well
-            a[b[0].second] = 0;
-            rep(i, 1, N)
-                a[b[i].second] = a[b[i - 1].second] +
-                                 (b[i - 1].first != b[i].first);
+            vector<node> tmp_a(n);
+            vector<int> pos(n, 0);
 
-            if ((1 << moc) >= N)
-                break;
-            rep(i, 0, N)
+            for (int i = 1; i < n; i++)
+                pos[i] = pos[i - 1] + cnt[i - 1];
+
+            for (auto &x : a)
             {
-                b[i].first = (ll)a[i] << q;
-                if (i + (1 << moc) < N)
-                    b[i].first += a[i + (1 << moc)];
-                b[i].second = i;
+                int i = x[id];
+                tmp_a[pos[i]] = x;
+                pos[i]++;
             }
+            a = tmp_a;
         }
-        rep(i, 0, sz(a)) a[i] = b[i].second;
-        calc_lcp();
-        rank.resize(N);
-        rep(i, 0, rank.size()) rank[a[i]] = i;
     }
-    void calc_lcp()
+
+public:
+    static vector<int> getSuffixArray(const string &_s)
     {
-        // longest common prefixes: res[i] = lcp(a[i], a[i-1])
-        int n = sz(a), h = 0;
-        lcp.resize(n);
-        vi inv(n);
-        rep(i, 0, n) inv[a[i]] = i;
-        rep(i, 0, n) if (inv[i] > 0)
+        string s = _s;
+        s.push_back(static_cast<char>(0));
+
+        int n = s.size();
+        vector<int> sa(n), cost(n);
+
+        int k = -1;
+        do
         {
-            int p0 = a[inv[i] - 1];
-            while (s[i + h] == s[p0 + h])
+            vector<node> a(n);
+
+            if (k == -1)
+            {
+                for (int i = 0; i < n; i++)
+                    a[i] = node{static_cast<int>(s[i]), 0, i};
+                sort(a.begin(), a.end());
+            }
+            else
+            {
+                for (int i = 0; i < n; i++)
+                    a[i] = node{cost[i], cost[(i + (1 << k)) % n], i};
+                radix_sort(a);
+            }
+
+            for (int i = 0; i < n; i++)
+                sa[i] = a[i][2];
+
+            cost[sa[0]] = 0;
+            for (int i = 1; i < n; i++)
+            {
+                if (a[i][0] == a[i - 1][0] && a[i][1] == a[i - 1][1])
+                    cost[sa[i]] = cost[sa[i - 1]];
+                else
+                    cost[sa[i]] = cost[sa[i - 1]] + 1;
+            }
+
+            k++;
+        } while ((1 << k) < n);
+
+        sa.erase(sa.begin());
+        return sa;
+    }
+    static vector<int> getRank(const vector<int> &suffix_array)
+    {
+        int n = suffix_array.size();
+        vector<int> rank(n);
+        for (int i = 0; i < n; i++)
+            rank[suffix_array[i]] = i;
+        return rank;
+    }
+    static vector<int> getLCP(const string &s, const vector<int> &suffix_array, const vector<int> &rank)
+    {
+        int n = suffix_array.size(), h = 0;
+        vector<int> lcp(n);
+        for (int i = 0; i < n; i++)
+        {
+            if (rank[i] == 0)
+                continue;
+            int p = suffix_array[rank[i] - 1];
+
+            while (i + h < n && p + h < n && s[i + h] == s[p + h])
                 h++;
-            lcp[inv[i]] = h;
+
+            lcp[rank[i]] = h;
+
             if (h > 0)
                 h--;
         }
+        return lcp;
+    }
+    static tuple<vector<int>, vector<int>, vector<int>> getAll(const string &s)
+    {
+        vector<int> sa = getSuffixArray(s);
+        vector<int> rank = getRank(sa);
+        vector<int> lcp = getLCP(s, sa, rank);
+        return make_tuple(sa, rank, lcp);
+    }
+    static void display(const string &s, const vector<int> &suffix_array, const vector<int> &lcp)
+    {
+        cout << "idx\tlcp\tsuffix\n";
+        for (int i = 0; i < suffix_array.size(); i++)
+            cout << suffix_array[i] << "\t" << lcp[i] << "\t" << s.substr(suffix_array[i]) << endl;
     }
 };
-// END suffix Array

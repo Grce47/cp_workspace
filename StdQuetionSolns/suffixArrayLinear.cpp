@@ -104,28 +104,36 @@ private:
 
 public:
     // time: O(nlogn) for hashing values + O(n) for evaluating Suffix Array
-    static vector<int> getSuffixArray(vector<int> &a)
+    static vector<int> getSuffixArray(vector<int> &a, bool doHashing = true)
     {
         // Requirement: hash all values of array to {1...K}.
         int n = a.size();
-
-        // hashing: O(nlogn)
-        set<int> hash_set;
-        for (auto &e : a)
-            hash_set.insert(e);
-        vector<int> hash_order;
-        for (auto &e : hash_set)
-            hash_order.push_back(e);
-
         int *arr = new int[n + 3];
         arr[n] = arr[n + 1] = arr[n + 2] = 0;
-        for (int i = 0; i < n; i++)
-            arr[i] = lower_bound(hash_order.begin(), hash_order.end(), a[i]) - hash_order.begin() + 1;
+
+        if (doHashing)
+        {
+            // hashing: O(nlogn)
+            set<int> hash_set;
+            for (auto &e : a)
+                hash_set.insert(e);
+            vector<int> hash_order;
+            for (auto &e : hash_set)
+                hash_order.push_back(e);
+
+            for (int i = 0; i < n; i++)
+                arr[i] = lower_bound(hash_order.begin(), hash_order.end(), a[i]) - hash_order.begin() + 1;
+        }
+        else
+        {
+            for (int i = 0; i < n; i++)
+                arr[i] = a[i];
+        }
 
         int *ans = new int[n];
 
         // claim to be O(n)
-        suffixArray(arr, ans, n, hash_set.size());
+        suffixArray(arr, ans, n, *max_element(arr, arr + n));
 
         vector<int> ret(ans, ans + n);
         delete[] ans;
@@ -175,7 +183,8 @@ public:
     }
 
     // lcp[0] = 0; lcp[i] = common_pref between s.substr(suffix_array[i-1]) and s.substr(suffix_array[i])
-    static vector<int> getLCP(const auto &s, const vector<int> &suffix_array, const vector<int> &rank)
+    template <typename T>
+    static vector<int> getLCP(const T &s, const vector<int> &suffix_array, const vector<int> &rank)
     {
         int n = suffix_array.size(), h = 0;
         vector<int> lcp(n);
@@ -185,7 +194,7 @@ public:
                 continue;
             int p = suffix_array[rank[i] - 1];
 
-            while (s[i + h] == s[p + h])
+            while (i + h < s.size() && p + h < s.size() && s[i + h] == s[p + h])
                 h++;
 
             lcp[rank[i]] = h;
@@ -194,6 +203,16 @@ public:
                 h--;
         }
         return lcp;
+    }
+
+    // auto [sa, rank, lcp] = SuffixArray::getAll(s); //(>c++17)
+    template <typename T>
+    static tuple<vector<int>, vector<int>, vector<int>> getAll(const T &s)
+    {
+        vector<int> sa = getSuffixArray(s);
+        vector<int> rank = getRank(sa);
+        vector<int> lcp = getLCP(s, sa, rank);
+        return make_tuple(sa, rank, lcp);
     }
 
     static void display(const string &s, const vector<int> &suffix_array, const vector<int> &lcp)

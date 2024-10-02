@@ -1,59 +1,87 @@
-struct Matrix
+// usesase:-
+// Matrix<ll, 2, MOD> mat({array<ll, 2>{1, 0}, array<ll, 2>{0, 2}});
+// mat.power(10).print();
+template <class T, size_t N, long long MOD = -1>
+class Matrix : public array<array<T, N>, N>
 {
-    vector<vector<long long>> table;
-    int n;
-    Matrix(int N)
+private:
+    static void multipy_add(T &a, const T &x, const T &y)
     {
-        n = N;
-        table.resize(n, vector<long long>(n, 0));
-    }
-    void add_mod(long long &a, long long b)
-    {
-        a = a + b;
-        while (a < 0)
-            a += MOD;
-        a %= MOD;
-    }
-    long long mul_mod(long long a, long long b)
-    {
-        return (a * b) % MOD;
-    }
-    Matrix operator*(Matrix const &other)
-    {
-        Matrix res(n);
-        for (int i = 0; i < n; i++)
+        if (MOD == -1)
+            a += (x * y);
+        else
         {
-            for (int j = 0; j < n; j++)
+            a += (x * y) % MOD;
+            if (a >= MOD)
+                a -= MOD;
+        }
+    }
+
+public:
+    Matrix(bool identity = false) : array<array<T, N>, N>()
+    {
+        for (size_t i = 0; i < N; i++)
+            for (size_t j = 0; j < N; j++)
+                (*this)[i][j] = (identity && i == j ? 1 : 0);
+    }
+
+    Matrix(const array<array<T, N>, N> &a) : array<array<T, N>, N>(a) {}
+
+    void print()
+    {
+        for (size_t i = 0; i < N; i++)
+        {
+            for (size_t j = 0; j < N; j++)
+                cout << (*this)[i][j] << " ";
+            cout << "\n";
+        }
+    }
+
+    Matrix<T, N, MOD> operator*(const Matrix<T, N, MOD> &other) const
+    {
+        Matrix<T, N, MOD> res;
+        for (size_t i = 0; i < N; i++)
+            for (size_t j = 0; j < N; j++)
+                for (size_t k = 0; k < N; k++)
+                    multipy_add(res[i][j], (*this)[i][k], other[k][j]);
+        return res;
+    }
+
+    template <size_t M>
+    array<array<T, M>, N> matrix_mult(const array<array<T, M>, N> &other)
+    {
+        array<array<T, M>, N> res;
+        for (size_t i = 0; i < N; i++)
+            for (size_t j = 0; j < M; j++)
             {
-                for (int k = 0; k < n; k++)
-                    add_mod(res.table[i][j], mul_mod(table[i][k], other.table[k][j]));
+                res[i][j] = 0;
+                for (size_t k = 0; k < N; k++)
+                    multipy_add(res[i][j], (*this)[i][k], other[k][j]);
             }
+        return res;
+    }
+    array<T, N> matrix_mult(const array<T, N> &other)
+    {
+        array<T, N> res;
+        for (size_t i = 0; i < N; i++)
+        {
+            res[i] = 0;
+            for (size_t k = 0; k < N; k++)
+                multipy_add(res[i], (*this)[i][k], other[k]);
         }
         return res;
     }
-    long long sum_of_all()
+
+    Matrix<T, N, MOD> power(long long n) const
     {
-        long long res = 0;
-        for (int i = 0; i < n; i++)
+        Matrix<T, N, MOD> a(*this), res(true);
+        while (n)
         {
-            for (int j = 0; j < n; j++)
-                add_mod(res, table[i][j]);
+            if (n & 1)
+                res = (res * a);
+            a = (a * a);
+            n >>= 1;
         }
         return res;
     }
 };
-
-Matrix power(Matrix base, long long k)
-{
-    Matrix res(base.n); // identity matrix
-    for (int i = 0; i < base.n; i++)
-        res.table[i][i] = 1;
-    while (k)
-    {
-        if (k & 1)
-            res = res * base;
-        base = base * base;
-        k = k >> 1;
-    }
-    return res;
-}
