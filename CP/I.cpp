@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// clang-format off
 #ifdef GR47_LOCAL
 #include "../files/GR47_debug.hpp"
 #else
@@ -17,19 +18,10 @@ using namespace std;
 #define sz(a) ((int)a.size())
 
 template <class T>
-ostream &operator<<(ostream &os, const vector<T> a)
-{
-    for (auto ele : a)
-        os << ele << " ";
-    return os;
-}
+ostream &operator<<(ostream &os, const vector<T> a) { for (auto ele : a) os << ele << " "; return os; }
 template <class T>
-istream &operator>>(istream &is, vector<T> &a)
-{
-    for (auto &ele : a)
-        is >> ele;
-    return is;
-}
+istream &operator>>(istream &is, vector<T> &a) { for (auto &ele : a) is >> ele; return is; }
+// clang-format on
 
 typedef long long ll;
 
@@ -40,20 +32,17 @@ void solve()
 {
 }
 
+// clang-format off
 int32_t main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
+    ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
 #ifdef GR47_LOCAL
-    freopen("../files/input.txt", "r", stdin);
-    freopen("../files/output.txt", "w", stdout);
-    freopen("../files/error.txt", "w", stderr);
+    freopen("../files/input.txt", "r", stdin); freopen("../files/output.txt", "w", stdout); freopen("../files/error.txt", "w", stderr);
 #endif
 
-    int tc = 1;
-    cin >> tc;
+    int tc = 1; 
+    cin >> tc; 
     for (int loop = 1; loop <= tc; loop++)
     {
         // cout << "Case #" << loop << ": ";
