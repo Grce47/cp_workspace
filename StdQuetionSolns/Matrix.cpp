@@ -85,3 +85,39 @@ public:
         return res;
     }
 };
+
+
+
+// easy
+typedef long long ll;
+const long long MOD = 1000000007;
+ 
+using Row = vector<ll>;
+using Matrix = vector<vector<ll>>;
+ 
+Matrix mul(const Matrix &a, const Matrix &b)
+{
+    int n = a.size();
+    Matrix res(n, Row(n, 0));
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            for (int k = 0; k < n; k++)
+                (res[i][j] += a[i][k] * b[k][j]) %= MOD;
+    return res;
+}
+ 
+Matrix power(Matrix a, long long n)
+{
+    Matrix res(a.size(), Row(a.size(), 0));
+    for (int i = 0; i < a.size(); i++)
+        res[i][i] = 1;
+ 
+    while (n)
+    {
+        if (n & 1)
+            res = mul(res, a);
+        a = mul(a, a);
+        n >>= 1;
+    }
+    return res;
+}
